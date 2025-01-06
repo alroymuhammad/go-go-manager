@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=gomanager
+      - DB_PORT=5432
+    volumes:
+      - .:/app
+    networks:
+      - go-network
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=gomanager
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - go-network
+
+volumes:
+  postgres_data:
+
+networks:
+  go-network:
+    driver: bridge
