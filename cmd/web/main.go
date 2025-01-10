@@ -4,23 +4,19 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	
-	"github.com/alroymuhammad/go-go-manager/pkg/database"
-)
 
-func home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World")
-}
+	"github.com/alroymuhammad/go-go-manager/internal/routes"
+	config "github.com/alroymuhammad/go-go-manager/pkg/database"
+)
 
 func main() {
 	db := config.ConnectDB()
 	defer db.Close()
-	
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", home)
+
+	router := routes.NewRouter(db)
 
 	port := 8080
 	fmt.Printf("Starting server on port %d\n", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%d", port), mux)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", port), router)
 	log.Fatal(err)
 }
