@@ -9,10 +9,6 @@ import (
 	config "github.com/alroymuhammad/go-go-manager/pkg/database"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World")
-}
-
 func main() {
 	// Connect to the database
 	db := config.ConnectDB()
@@ -20,7 +16,6 @@ func main() {
 
 	// Set up routes
 	router := route.SetupRoutes(db)
-	router.HandleFunc("/", home)
 
 	// Create a new HTTP server and pass the router
 	port := 8080
