@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	auth "github.com/alroymuhammad/go-go-manager/internal/jwt"
+	auth "github.com/alroymuhammad/go-go-manager/internal/appjwt"
 )
 
 func AuthMiddleware(next http.Handler) http.Handler {
