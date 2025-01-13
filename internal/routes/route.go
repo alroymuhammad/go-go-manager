@@ -30,6 +30,7 @@ func SetupRoutes(db *sql.DB) *mux.Router {
 
 	// Routing untuk Employees
 	router.Handle("/employees", employeeHandler).Methods("POST") // Create Employee
+	router.Handle("/employees", employeeHandler).Methods("GET")
 
 	// Routing untuk Auth
 	router.HandleFunc("/v1/auth", authHandler.AuthHandler).Methods("POST")
